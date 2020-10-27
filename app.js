@@ -43,11 +43,11 @@ client.on("error",(error)=>{
 client.on('message',function(topic, message, packet){
     console.log("topic is "+ topic);
     console.log(JSON.parse(message));
-    const newdata = new temp(message);
-    newdata.save((err, result)=>{
-        if(err) throw err;
-        console.log(result)
-    })
+    // const newdata = new temp(message);
+    // newdata.save((err, result)=>{
+    //     if(err) throw err;
+    //     console.log(result)
+    // })
 });
 
 app.get("/", (req, res)=>{
