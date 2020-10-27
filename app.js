@@ -44,8 +44,9 @@ client.on("error",(error)=>{
 
 client.on('message',function(topic, message, packet){
     console.log("topic is "+ topic);
-    console.log(JSON.parse(message));
-    ee.emit("newtemp", message);
+    var jsondata = JSON.parse(message);
+    console.log(jsondata);
+    ee.emit("newtemp", jsondata);
     // const newdata = new temp(JSON.parse(message));
     // newdata.save((err, result)=>{
     //     if(err) throw err;
@@ -61,7 +62,7 @@ io.on("connection", (socket)=>{
     console.log("ws client connected");
     socket.emit("tes", "tes");
     ee.on("newtemp", (data)=>{
-        socket.emit("newtemp", data);
+        socket.emit("newtemp", JSON.stringify(data));
     })
     
 });
