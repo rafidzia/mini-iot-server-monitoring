@@ -34,6 +34,5 @@ io.on("connection", (socket)=>{
     socket.emit("tes", "isinya");
 });
 
-http.listen(httpPort, function(){
-    console.log('Server listen port ' + httpPort);
-});
+
+app.listen(process.env.PORT || httpPort);
