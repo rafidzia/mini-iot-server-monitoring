@@ -1,32 +1,34 @@
 const mqtt      = require("mqtt");
 const express   = require("express");
 const app       = express();
-const mongoose  = require("mongoose")
+const mongoose  = require("mongoose");
+const events   = require("events");
 var http        = require("http").Server(app);
 var io          = require("socket.io")(http);
+var ee          = new events.EventEmitter();
 const httpPort  = 8090;
 
 app.use('/assets', express.static('assets'));
 
-var conn = mongoose.createConnection('mongodb+srv://cluster0.jpi1b.mongodb.net/wannalog', 
-{
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    "auth": {
-        "authSource": "admin"
-    },
-    "user": "rafidzia",
-    "pass": "asd018-dsa",
-});
+// var conn = mongoose.createConnection('mongodb+srv://cluster0.jpi1b.mongodb.net/wannalog', 
+// {
+//     useNewUrlParser: true, 
+//     useUnifiedTopology: true,
+//     "auth": {
+//         "authSource": "admin"
+//     },
+//     "user": "rafidzia",
+//     "pass": "asd018-dsa",
+// });
 
-var temp = conn.model("temp", {
-    adc : Number,
-    opamp : Number,
-    lm35 : Number,
-    temp : Number,
-    led : String,
-    time : String
-})
+// var temp = conn.model("temp", {
+//     adc : Number,
+//     opamp : Number,
+//     lm35 : Number,
+//     temp : Number,
+//     led : String,
+//     time : String
+// })
 
 var client = mqtt.connect("mqtt://broker.hivemq.com", {clientId : "mqttjsfarid1"});
 
@@ -43,11 +45,12 @@ client.on("error",(error)=>{
 client.on('message',function(topic, message, packet){
     console.log("topic is "+ topic);
     console.log(JSON.parse(message));
-    const newdata = new temp(JSON.parse(message));
-    newdata.save((err, result)=>{
-        if(err) throw err;
-        console.log(result)
-    })
+    ee.emit("newtemp", message);
+    // const newdata = new temp(JSON.parse(message));
+    // newdata.save((err, result)=>{
+    //     if(err) throw err;
+    //     console.log(result)
+    // })
 });
 
 app.get("/", (req, res)=>{
@@ -56,7 +59,11 @@ app.get("/", (req, res)=>{
 
 io.on("connection", (socket)=>{
     console.log("ws client connected");
-    socket.emit("tes", "isinya");
+    socket.emit("tes", "tes");
+    ee.on("newtemp", (data)=>{
+        socket.emit("newtemp", data);
+    })
+    
 });
 
 http.listen(process.env.PORT || httpPort, function(){

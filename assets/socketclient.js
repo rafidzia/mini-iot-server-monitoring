@@ -6,6 +6,10 @@ socket.on("tes", function(data){
     console.log(data);
 })
 
+socket.on("newtemp", function(data){
+    console.log(data);
+})
+
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
