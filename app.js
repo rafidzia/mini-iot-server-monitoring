@@ -6,7 +6,7 @@ const events   = require("events");
 var http        = require("http").Server(app);
 var io          = require("socket.io")(http);
 var ee          = new events.EventEmitter();
-const httpPort  = 8090;
+const httpPort  = 8091;
 
 app.use('/assets', express.static('assets'));
 
@@ -30,29 +30,29 @@ app.use('/assets', express.static('assets'));
 //     time : String
 // })
 
-var client = mqtt.connect("mqtt://broker.hivemq.com", {clientId : "mqttjsfarid1"});
+// var client = mqtt.connect("mqtt://broker.hivemq.com", {clientId : "mqttjsfarid1"});
 
-client.on("connect",()=>{	
-    if(client.connected) console.log("mqtt connected");
-    client.subscribe("/mofuban/wannalog", {qos : 1});
-});
+// client.on("connect",()=>{	
+//     if(client.connected) console.log("mqtt connected");
+//     client.subscribe("/mofuban/wannalog", {qos : 1});
+// });
 
-client.on("error",(error)=>{ 
-    console.log("Can't connect" + error);
-    process.exit(1);
-});
+// client.on("error",(error)=>{ 
+//     console.log("Can't connect" + error);
+//     process.exit(1);
+// });
 
-client.on('message',function(topic, message, packet){
-    console.log("topic is "+ topic);
-    var jsondata = JSON.parse(message);
-    console.log(jsondata);
-    ee.emit("newtemp", jsondata);
-    // const newdata = new temp(JSON.parse(message));
-    // newdata.save((err, result)=>{
-    //     if(err) throw err;
-    //     console.log(result)
-    // })
-});
+// client.on('message',function(topic, message, packet){
+//     console.log("topic is "+ topic);
+//     var jsondata = JSON.parse(message);
+//     console.log(jsondata);
+//     ee.emit("newtemp", jsondata);
+//     // const newdata = new temp(JSON.parse(message));
+//     // newdata.save((err, result)=>{
+//     //     if(err) throw err;
+//     //     console.log(result)
+//     // })
+// });
 
 app.get("/", (req, res)=>{
     res.sendFile(__dirname + "/index.html");
