@@ -43,7 +43,6 @@ client.on("error",(error)=>{
 });
 
 client.on('message',function(topic, message, packet){
-    console.log("topic is "+ topic);
     var jsondata = JSON.parse(message);
     ee.emit("newtemp", jsondata);
     // const newdata = new temp(JSON.parse(message));
