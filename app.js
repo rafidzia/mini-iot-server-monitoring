@@ -19,14 +19,14 @@ var conn = mongoose.createConnection('mongodb+srv://cluster0.jpi1b.mongodb.net/w
     "pass": "asd018-dsa",
 });
 
-var temp = conn.model("temp", mongoose.Schema({
+var temp = conn.model("temp", {
     adc : Number,
     opamp : Number,
     lm35 : Number,
     temp : Number,
     led : String,
     time : String
-}))
+})
 
 var client = mqtt.connect("mqtt://broker.hivemq.com", {clientId : "mqttjsfarid1"});
 
@@ -43,7 +43,7 @@ client.on("error",(error)=>{
 client.on('message',function(topic, message, packet){
     console.log("topic is "+ topic);
     console.log(JSON.parse(message));
-    const newdata = new temp(message);
+    const newdata = new temp(JSON.parse(message));
     newdata.save((err, result)=>{
         if(err) throw err;
         console.log(result)
