@@ -4,7 +4,7 @@ const app       = express();
 const mongoose  = require("mongoose")
 var http        = require("http").Server(app);
 var io          = require("socket.io")(http);
-const httpPort  = 8080;
+const httpPort  = 8090;
 
 app.use('/assets', express.static('assets'));
 
@@ -34,5 +34,6 @@ io.on("connection", (socket)=>{
     socket.emit("tes", "isinya");
 });
 
-
-app.listen(process.env.PORT || httpPort);
+http.listen(process.env.PORT || httpPort, function(){
+    console.log('Server listen port ' + httpPort);
+});
