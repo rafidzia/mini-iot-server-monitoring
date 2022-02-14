@@ -3,10 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./assets/style.css" rel="stylesheet"></link>
     <title>Document</title>
 </head>
 <body>
-    <div id="curve_chart" style="width: auto; height: 500px"></div>
+    <div class="frame"><div id="curve_chart" style="width: auto; height: 500px"></div></div>
+    <div id="container-1">
+        <div class="frame">
+            <div>Temp</div>
+            <div id="temp">25.1 &#8451;</div>
+        </div>
+        <div class="frame">
+            <div>Fan Speed</div>
+            <div id="fan">56 %</div>
+        </div>
+        <div>
+            <div>LED</div><br>
+            <div><button id="btn-led"> </button></div>
+            <div>status : <span id="led-status"></span></div>
+        </div>
+        <div>
+            <div>Alarm</div><br>
+            <form id="form-alarm">
+                <input id="input-alarm" type="text" placeholder="00.00"/>
+                <br/><br/>
+                <button>Set</button>
+            </form>
+        </div>
+    </div>
 </body>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="./socket.io/socket.io.js"></script>

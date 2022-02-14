@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.frame {
+  box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.13),
+    0px 0px 2.9px rgba(0, 0, 0, 0.11);
+}
+#container-1 {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#container-1 > div {
+  display: inline-block;
+  padding: 30px;
+  text-align: center;
+  margin: 0px 30px;
+  width: 200px;
+  border-radius: 10px;
+}
+#container-1 > div > div:nth-child(1) {
+  font-size: 25px;
+}
+#container-1 > div > div:nth-child(2) {
+  font-size: 50px;
+}
+#btn-led {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border: 2px solid #aaa;
+  border-radius: 50px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+#btn-led:active {
+  background-color: #aaa;
+}
+#form-alarm > input {
+  outline: none;
+  text-align: center;
+  border: none;
+  border-bottom: 2px solid #aaa;
+  padding: 5px;
+}
+#form-alarm > button {
+  width: 100px;
+  background-color: white;
+  border: 2px solid #aaa;
+  outline: none;
+  padding: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#form-alarm > button:active {
+  background-color: #aaa;
+  color: white;
+}
