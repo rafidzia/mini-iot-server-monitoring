@@ -6,6 +6,7 @@ const events = require("events");
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var ee = new events.EventEmitter();
+var config = require("./config.json");
 const httpPort = 8094;
 
 app.use('/assets', express.static('assets'));
@@ -17,8 +18,8 @@ var conn = mongoose.createConnection('mongodb+srv://cluster0.jpi1b.mongodb.net/w
     "auth": {
         "authSource": "admin"
     },
-    "user": "rafidzia",
-    "pass": "asd018-dsa",
+    "user": config.username,
+    "pass": config.password,
 });
 
 var temp = conn.model("temp", {
